@@ -2,7 +2,6 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
-#include <QtNetwork>
 
 
 namespace Ui {
@@ -19,11 +18,9 @@ public:
 
 private:
     Ui::MainWindow *ui;
-    QNetworkAccessManager *networkAccessManager_;
 
 private slots:
-    void onNetworkAccessManagerFinished(QNetworkReply*);
-    void onNetworkAccessManagerFinished2(QNetworkReply*);
+    void onLoadProjectFinished(QList<QString> projects);
 
 };
 
