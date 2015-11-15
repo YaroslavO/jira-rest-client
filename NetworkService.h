@@ -16,6 +16,10 @@ public:
 
 signals:
     void loadProjectFinished(QList<Project*>);
+    void issueLoaded(QList<QString>);
+
+public slots:
+    void onProjectButtonClicked(QString);
 
 private:
     QNetworkAccessManager *networkAccessManager_;
@@ -23,6 +27,7 @@ private:
 private slots:
     void onAuthorizationFinished(QNetworkReply*);
     void onLoadProjectsFinished(QNetworkReply*);
+    void onLoadIssues(QNetworkReply*);
 };
 
 #endif // NETWORKSERVICE_H

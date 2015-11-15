@@ -9,9 +9,10 @@ MainWindow::MainWindow(QWidget *parent) :
     ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    NetworkService *networkService = new NetworkService();
-    connect(networkService, SIGNAL(loadProjectFinished(QList<Project*>)), this, SLOT(onLoadProjectFinished(QList<Project*>)));
-    networkService->login("jaroslavo", "secret");
+    networkService_ = new NetworkService();
+    connect(networkService_, SIGNAL(loadProjectFinished(QList<Project*>)), this, SLOT(onLoadProjectFinished(QList<Project*>)));
+    connect(networkService_, SIGNAL(issueLoaded(QList<QString>)), this, SLOT(onLoadIssue(QList<QString>)));
+    networkService_->login("jaroslavo", "secret");
 }
 
 MainWindow::~MainWindow() {
@@ -25,7 +26,13 @@ void MainWindow::onLoadProjectFinished(QList<Project*> projects) {
         std::auto_ptr_ref<QListWidgetItem> item(new QListWidgetItem(ui->projectsList));
         ProjectButton *projectButton = new ProjectButton(project->name(), project->key(), this);
 
+        connect(projectButton, SIGNAL(clickedWithKey(QString)), networkService_, SLOT(onProjectButtonClicked(QString)));
+
         ui->projectsList->setItemWidget(item._M_ptr, (QWidget*) projectButton);
     }
+}
+
+void MainWindow::onLoadIssue(QList<QString> issues) {
+
 }
 
