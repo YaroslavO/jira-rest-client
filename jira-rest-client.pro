@@ -15,10 +15,12 @@ TEMPLATE = app
 SOURCES += main.cpp\
         MainWindow.cpp \
     NetworkService.cpp \
-    Project.cpp
+    Project.cpp \
+    ProjectButton.cpp
 
 HEADERS  += MainWindow.h \
     NetworkService.h \
-    Project.h
+    Project.h \
+    ProjectButton.h
 
 FORMS    += MainWindow.ui

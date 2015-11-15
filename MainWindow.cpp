@@ -1,7 +1,8 @@
 #include "MainWindow.h"
 #include "ui_MainWindow.h"
 #include "NetworkService.h"
-
+#include <memory>
+#include "ProjectButton.h"
 
 MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
@@ -18,8 +19,13 @@ MainWindow::~MainWindow() {
 }
 
 void MainWindow::onLoadProjectFinished(QList<Project*> projects) {
+    ui->projectsList->clear();
+
     foreach (Project *project, projects) {
-        ui->projectsList->addItem(project->name());
+        std::auto_ptr_ref<QListWidgetItem> item(new QListWidgetItem(ui->projectsList));
+        ProjectButton *projectButton = new ProjectButton(project->name(), project->key(), this);
+
+        ui->projectsList->setItemWidget(item._M_ptr, (QWidget*) projectButton);
     }
 }
 
